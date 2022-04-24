@@ -5,7 +5,7 @@ namespace Filepicker
     public class Filepicker
     {
         /// <summary>
-        /// Init user select cli
+        /// Initialize filepicker user selection
         /// </summary>
         /// <returns>File (including directory)</returns>
         public static string Select()
@@ -14,12 +14,22 @@ namespace Filepicker
         }
 
         /// <summary>
-        /// Init user select cli with directory
+        /// Initialize filepicker user selection with filtered filetype
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        public static string Select(IEnumerable<string> filters)
+        {
+            return Select(Directory.GetCurrentDirectory(), filters);
+        }
+
+        /// <summary>
+        /// Initialize filepicker user selection with selected directory and filtered filetype
         /// </summary>
         /// <param name="startingDirectory">Select's starting directory</param>
         /// <param name="filter">File type filter (only allows selection with selected)</param>
         /// <returns></returns>
-        public static string Select(string startingDirectory, string? filter = null)
+        public static string Select(string startingDirectory, IEnumerable<String>? filters = null)
         {
             var directory = startingDirectory;
             var chosen = false;
@@ -38,8 +48,8 @@ namespace Filepicker
                     directory = $"{directory}{chosenFilename}";
                 else
                 {
-                    if (filter != null && !chosenFilename.Contains(filter))
-                        Console.WriteLine($"Chosen file MUST be of type \"{filter}\". Please select another file.");
+                    if (filters != null && !filters.Contains(chosenFilename.Split(".")[chosenFilename.Split(".").Length]))
+                        Console.WriteLine($"Chosen file MUST be of type {String.Join(",", $"\"{filters}\"")}. Please select another file.");
                     else
                     {
                         returnFile = $"{directory}\\{chosenFilename}";
