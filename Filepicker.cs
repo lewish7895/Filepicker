@@ -1,6 +1,6 @@
 ﻿using Sharprompt;
 
-namespace Filepicker
+namespace Fileprompt
 {
     public class Filepicker
     {

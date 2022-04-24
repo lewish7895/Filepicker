@@ -8,6 +8,7 @@
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>
     <Authors>Lewis Harris</Authors>
+    <Description>Simple CLI UI filepicker with directory navigation</Description>
   </PropertyGroup>
 
   <ItemGroup>
