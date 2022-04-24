@@ -1,5 +1,5 @@
 ## Filepicker
-Simple CLI filepicker.
+Simple CLI UI filepicker with directory navigation
 
 To use simply add this repo to your project and use the Filepicker class with Select method:
 ```
