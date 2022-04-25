@@ -11,3 +11,5 @@ Filepicker.Select("C:\Location", new string[] { "xml", "json" } ); //select loca
 
 ### Possibly to add in future:
 - Add ability to select directory (dirpicker?)
+
+[Nuget package](https://www.nuget.org/packages/Filepicker)
