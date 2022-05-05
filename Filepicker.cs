@@ -8,7 +8,7 @@ namespace Fileprompt
         /// Initialize filepicker user selection
         /// </summary>
         /// <returns>File (including directory)</returns>
-        public static string Select()
+        public static string? Select()
         {
             return Select(Directory.GetCurrentDirectory());
         }
@@ -18,7 +18,7 @@ namespace Fileprompt
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public static string Select(string[] filters)
+        public static string? Select(string[] filters)
         {
             return Select(Directory.GetCurrentDirectory(), filters);
         }
@@ -29,11 +29,11 @@ namespace Fileprompt
         /// <param name="startingDirectory">Select's starting directory</param>
         /// <param name="filter">File type filter (only shows files with this filetype)</param>
         /// <returns></returns>
-        public static string Select(string startingDirectory, string[]? filters = null)
+        public static string? Select(string startingDirectory, string[]? filters = null)
         {
             var directory = startingDirectory;
             var chosen = false;
-            var returnFile = "";
+            string? returnFile = null;
 
             var formedFilters = filters == null ? null : filters.Select(f => f.Replace(".", "")).ToList();
 
@@ -50,9 +50,12 @@ namespace Fileprompt
                     directoryFiles = directoryFiles.Where(f => formedFilters.Contains(f.Split(".")[f.Split(".").Length - 1]));
 
                 printList.AddRange(directoryFiles);
+                printList.Add(">>> Cancel Fileprompt");
                 var chosenFilename = Prompt.Select($">>> {directory}\\ ", printList, defaultValue: "..");
                 if (chosenFilename == "..")
                     directory = String.Join("\\", directory.Split("\\").SkipLast(1));
+                else if (chosenFilename == ">>> Cancel Fileprompt")
+                    return null;
                 else if (chosenFilename.Contains("\\"))
                     directory = $"{directory}{chosenFilename}";
                 else
