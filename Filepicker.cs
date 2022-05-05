@@ -18,7 +18,7 @@ namespace Fileprompt
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
-        public static string Select(IEnumerable<string> filters)
+        public static string Select(string[] filters)
         {
             return Select(Directory.GetCurrentDirectory(), filters);
         }
@@ -27,34 +27,38 @@ namespace Fileprompt
         /// Initialize filepicker user selection with selected directory and filtered filetype
         /// </summary>
         /// <param name="startingDirectory">Select's starting directory</param>
-        /// <param name="filter">File type filter (only allows selection with selected)</param>
+        /// <param name="filter">File type filter (only shows files with this filetype)</param>
         /// <returns></returns>
-        public static string Select(string startingDirectory, IEnumerable<String>? filters = null)
+        public static string Select(string startingDirectory, string[]? filters = null)
         {
             var directory = startingDirectory;
             var chosen = false;
             var returnFile = "";
+
+            var formedFilters = filters == null ? null : filters.Select(f => f.Replace(".", "")).ToList();
+
             while (!chosen)
             {
-                var printList = new List<string>() { ".." };
-                var directoryDirs = Directory.GetDirectories(directory).ToList().Select(q => $"\\{q.Split("\\")[q.Split("\\").Length - 1]}");
+                var directoryDirs = Directory.GetDirectories(directory + "\\").ToList().Select(q => $"\\{q.Split("\\")[q.Split("\\").Length - 1]}");
+
+                var printList = directory.Split("\\").Length > 1 ? new List<string>() { ".." } : new List<string>();
                 printList.AddRange(directoryDirs);
+
                 var directoryFiles = Directory.GetFiles(directory).ToList().Select(q => q.Split("\\")[q.Split("\\").Length - 1]);
+
+                if (formedFilters != null && formedFilters.Count() > 0)
+                    directoryFiles = directoryFiles.Where(f => formedFilters.Contains(f.Split(".")[f.Split(".").Length - 1]));
+
                 printList.AddRange(directoryFiles);
-                var chosenFilename = Prompt.Select($">>> {directory}", printList, defaultValue: "..");
+                var chosenFilename = Prompt.Select($">>> {directory}\\ ", printList, defaultValue: "..");
                 if (chosenFilename == "..")
                     directory = String.Join("\\", directory.Split("\\").SkipLast(1));
                 else if (chosenFilename.Contains("\\"))
                     directory = $"{directory}{chosenFilename}";
                 else
                 {
-                    if (filters != null && !filters.Contains(chosenFilename.Split(".")[chosenFilename.Split(".").Length]))
-                        Console.WriteLine($"Chosen file MUST be of type {String.Join(",", $"\"{filters}\"")}. Please select another file.");
-                    else
-                    {
-                        returnFile = $"{directory}\\{chosenFilename}";
-                        chosen = true;
-                    }
+                    returnFile = $"{directory}\\{chosenFilename}";
+                    chosen = true;
                 }
             }
             return returnFile;
