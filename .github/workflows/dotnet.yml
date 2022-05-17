@@ -22,7 +22,5 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Publish
-      uses: brandedoutcast/public-nuget@v2.5.2
       with:
-        PROJECT_FILE_PATH: Extensions/Extensions.csproj
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
