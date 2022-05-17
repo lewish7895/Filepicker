@@ -21,6 +21,6 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Publish
+    - name: Publish nuget
       with:
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
