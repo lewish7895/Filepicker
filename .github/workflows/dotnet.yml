@@ -21,6 +21,10 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Publish nuget
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+    - name: Publish
+      uses: brandedoutcast/publish-nuget@latest
       with:
+        PROJECT_FILE_PATH: Filepicker.csproj
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
