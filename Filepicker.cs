@@ -42,6 +42,7 @@ namespace Fileprompt
                 var directoryDirs = Directory.GetDirectories(directory + "\\").ToList().Select(q => $"\\{q.Split("\\")[q.Split("\\").Length - 1]}");
 
                 var printList = directory.Split("\\").Length > 1 ? new List<string>() { ".." } : new List<string>();
+                printList.Add(">>> Refresh Directory");
                 printList.AddRange(directoryDirs);
 
                 var directoryFiles = Directory.GetFiles(directory).ToList().Select(q => q.Split("\\")[q.Split("\\").Length - 1]);
@@ -52,7 +53,7 @@ namespace Fileprompt
                 printList.Add(">>> Refresh Directory");
                 printList.AddRange(directoryFiles);
                 printList.Add(">>> Cancel Fileprompt");
-                var chosenFilename = Prompt.Select($">>> {directory}\\ ", printList, defaultValue: "..");
+                var chosenFilename = Prompt.Select($">>> {directory}\\ ", printList, 25, "..");
                 if (chosenFilename == "..")
                     directory = String.Join("\\", directory.Split("\\").SkipLast(1));
                 else if (chosenFilename == ">>> Cancel Fileprompt")
