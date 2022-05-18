@@ -50,7 +50,6 @@ namespace Fileprompt
                 if (formedFilters != null && formedFilters.Count() > 0)
                     directoryFiles = directoryFiles.Where(f => formedFilters.Contains(f.Split(".")[f.Split(".").Length - 1]));
 
-                printList.Add(">>> Refresh Directory");
                 printList.AddRange(directoryFiles);
                 printList.Add(">>> Cancel Fileprompt");
                 var chosenFilename = Prompt.Select($">>> {directory}\\ ", printList, 25, "..");
