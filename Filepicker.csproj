@@ -9,11 +9,20 @@
     <PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>
     <Authors>Lewis Harris</Authors>
     <Description>Simple CLI UI filepicker with directory navigation</Description>
-    <Version>1.0.6</Version>
+    <Version>1.1.0</Version>
+    <PackageProjectUrl>https://github.com/lewish7895/Filepicker</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Sharprompt" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
