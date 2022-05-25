@@ -11,6 +11,14 @@ namespace Fileprompt
         public static string? Select() => Select(Directory.GetCurrentDirectory());
 
         /// <summary>
+        /// Overload for Select - use filters and defaultSelection
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <param name="defaultSelection"></param>
+        /// <returns></returns>
+        public static string? Select(string[]? filters = null, string? defaultSelection = null) => Select(Directory.GetCurrentDirectory(), filters: filters, defaultSelection: defaultSelection);
+
+        /// <summary>
         /// Initialize filepicker user selection with filtered filetype
         /// </summary>
         /// <param name="filters"></param>

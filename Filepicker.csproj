@@ -9,7 +9,7 @@
     <PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>
     <Authors>Lewis Harris</Authors>
     <Description>Simple CLI UI filepicker with directory navigation</Description>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <PackageProjectUrl>https://github.com/lewish7895/Filepicker</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
